@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
+import 'pages/location.dart';
 
 
 void main() {
-  runApp(const MaterialApp(
-    home: HomePage(),
+  runApp(MaterialApp(
+    // home: HomePage(),
+    initialRoute: "/",
+    routes: {
+      "/":(context) => const HomePage(),
+      '/location':(context) => const Location(),
+
+    },
   ));
 }
 

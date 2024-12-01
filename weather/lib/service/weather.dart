@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class Weather {
   // API key
-  String key = "67219082d5a04530a56211552243011";
+  final String key = "67219082d5a04530a56211552243011";
 
   // fetching data
   Future<void> fetchData (String? location) async {
@@ -16,18 +16,30 @@ class Weather {
 
     // getting response
     Response weatherResponse = await get(weatherURL);
-    print(weatherResponse);
+    //print(weatherResponse);
 
     //printing the body
     Map weatherData = jsonDecode(weatherResponse.body);
-    print(weatherData);
+    //print(weatherData);
     
     //print parts of data
-    print(weatherData["location"]);
-    print(weatherData.keys);
+    // print(weatherData["location"]);
+    // print(weatherData.keys);
     
     // passing each value in the map as its own separate key-value pair
     weatherData.forEach((key, value) {
+      print("$key : $value ");
+    });
+
+    // separating the keys
+    var locationDetails = weatherData["location"];
+    var currentDetails = weatherData["current"];
+
+    // printing the details
+    print(locationDetails.runtimeType);
+    print(locationDetails);
+
+    locationDetails.forEach((key, value) {
       print("$key : $value ");
     });
 
