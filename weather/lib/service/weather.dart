@@ -7,50 +7,90 @@ import 'dart:convert';
 class Weather {
   // API key
   final String key = "67219082d5a04530a56211552243011";
+  Map? weatherData, locale, currentData, condition;
+  String? error;
+  String? localName,  condText, condIcon, dateTime, name;
 
+  Weather({
+    required this.localName,
+    required this.condText,
+    required this.condIcon,
+    required this.dateTime,
+  });
   // fetching data
   Future<void> fetchData (String? location) async {
-
     // URL for weather
-    Uri weatherURL = Uri.parse("http://api.weatherapi.com/v1/current.json?key=$key&q=$location");
+    try {
+      Uri weatherURL = Uri.parse(
+          "http://api.weatherapi.com/v1/current.json?key=$key&q=$location");
 
-    // getting response
-    Response weatherResponse = await get(weatherURL);
-    //print(weatherResponse);
+      // getting response
+      Response weatherResponse = await get(weatherURL);
+      //print(weatherResponse);
 
-    //printing the body
-    Map weatherData = jsonDecode(weatherResponse.body);
-    //print(weatherData);
-    
-    //print parts of data
-    // print(weatherData["location"]);
-    // print(weatherData.keys);
-    
-    // passing each value in the map as its own separate key-value pair
-    weatherData.forEach((key, value) {
-      print("$key : $value ");
-    });
+      if (weatherResponse.statusCode == 200) {
+        weatherData = jsonDecode(weatherResponse.body);
 
-    // separating the keys
-    var locationDetails = weatherData["location"];
-    var currentDetails = weatherData["current"];
+        // separating keys
+        locale = weatherData?["location"];
+        localName = "${locale?['name']}, ${locale?['country']}";
+        name = locale?['name'];
+        currentData = weatherData?['current'];
+        condition = currentData?['condition'];
+        condText = condition?['text'];
+        condIcon = "https:${condition?['icon']}";
+        dateTime = locale?['localtime'];
+      } else {
+        stdout.write("Fetch failed. Location does not exist: ${weatherResponse.statusCode}\n");
+      }
+    } catch(e) {
+      stdout.write("No connection: $e\n");
+    }
+  }
 
-    // printing the details
-    print(locationDetails.runtimeType);
-    print(locationDetails);
+  // Future<List<Null>> locSuggest () async {
+  //   await Future.delayed(const Duration(seconds: 1));
+  //   return List.generate(weatherData!.length, (i) {
+  //     Weather(
+  //       locale: '',
+  //
+  //
+  //     );
+  //   });
+  // }
 
-    locationDetails.forEach((key, value) {
-      print("$key : $value ");
-    });
+  Future<void> dataKeys (String? area) async {
+    await fetchData(area);
+
+    // null check
+    if (weatherData != null) {
+      var locationKey = weatherData?["location"];
+      var currentKey = weatherData?["current"];
+
+      print("Location Details");
+      locationKey.forEach((key, value) {
+        print("$key -> $value\t\t");
+      });
+
+      print("\nCurrent weather Details");
+      currentKey.forEach((key, value) {
+        print("$key -> $value\t\t");
+      });
+    } else {
+     error = "No weather data available. Check internet connection and try again";
+    }
 
   }
 }
 
 void main() {
-  Weather weatherTest = Weather();
-  print("Enter location : ");
+  Weather weatherTest = Weather(
+    localName: "",
+    condText: "",
+    condIcon: "",
+    dateTime: "",
+  );
+  stdout.write("Enter location : ");
   String? location = stdin.readLineSync();
-  weatherTest.fetchData(location);
-
-
+  weatherTest.dataKeys(location);
 }
