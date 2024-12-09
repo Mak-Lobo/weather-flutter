@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                   size: 20,
                 ),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.white.withOpacity(0.3)),
+                  backgroundColor: WidgetStateProperty.all(Colors.blue.withOpacity(0.3)),
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             "THIKA",
                             style: TextStyle(
-                              fontFamily: "Warpen",
+                              fontFamily: "DM Serif Display",
                               fontSize: 32,
                               color: Color.fromARGB(255, 10, 101, 109),
                             ),

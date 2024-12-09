@@ -89,7 +89,7 @@ class _LocationState extends State<Location> {
               label: const Text("Save Location"),
               icon: const Icon(Icons.add_location_alt_outlined),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   Colors.blueAccent.withOpacity(0.45),
                 ),
               ),
