@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/location.dart';
+import 'pages/comparison.dart';
 
 
 void main() {
   runApp(MaterialApp(
     // home: HomePage(),
-    initialRoute: "/",
+    initialRoute: "/locationTest",
     routes: {
       "/":(context) => const HomePage(),
       '/location':(context) => const Location(),
-
+      '/locationTest': (context) => LocationPickerScreen(),
     },
   ));
 }

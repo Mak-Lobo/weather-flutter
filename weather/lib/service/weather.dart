@@ -67,15 +67,15 @@ class Weather {
       var locationKey = weatherData?["location"];
       var currentKey = weatherData?["current"];
 
-      print("Location Details");
-      locationKey.forEach((key, value) {
-        print("$key -> $value\t\t");
-      });
+      // print("Location Details");
+      // locationKey.forEach((key, value) {
+      //   print("$key -> $value\t\t");
+      // });
 
-      print("\nCurrent weather Details");
-      currentKey.forEach((key, value) {
-        print("$key -> $value\t\t");
-      });
+      // print("\nCurrent weather Details");
+      // currentKey.forEach((key, value) {
+      //   print("$key -> $value\t\t");
+      // });
     } else {
      error = "No weather data available. Check internet connection and try again";
     }

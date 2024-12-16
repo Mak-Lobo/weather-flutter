@@ -129,21 +129,24 @@ class _LocationState extends State<Location> {
               Column(
                 children: [
                   Image.network(
-                    "${weatherSel!.condIcon}",
+                    "${weatherSel?.condIcon}",
                     width: 50,
                     errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Condition: ${weatherSel!.condText}",
+                    "Condition: ${weatherSel?.condText}",
                     style: const TextStyle(
                       fontSize: 16,
                       fontFamily: "DM Serif Display",
                     ),
                   ),
                   Text(
-                    "Temperature: ${weatherSel!.currentData?["temp_c"] ?? "N/A"}°C",
-                    style: const TextStyle(fontSize: 16),
+                    "Temperature: ${weatherSel?.currentData?["temp_c"] ?? "N/A"}°C",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'DM Sans',
+                    ),
                   ),
                 ],
               ),
@@ -273,19 +276,30 @@ class _LocationState extends State<Location> {
                             'localName': saved[index].localName,
                             'condText': saved[index].condText,
                             'condIcon': saved[index].condIcon,
-                            'dateTime': saved[index].condIcon,
+                            'dateTime': saved[index].dateTime,
                           });
                         },
-                        title: Text("${saved[index].localName}"),
-                        subtitle: Text("${saved[index].condText}"),
+                        title: Text(
+                          "${saved[index].localName}",
+                          style: const TextStyle(
+                            fontFamily: "DM Serif Display",
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "${saved[index].condText}",
+                          style: const TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
                         trailing: PopupMenuButton(
                           color: Colors.blue[500],
                           icon:  const Icon(Icons.more_vert_rounded),
                           itemBuilder: (BuildContext context) => [
                             PopupMenuItem(
-                              textStyle: const TextStyle(
-                                fontFamily: "Poppins",
-                              ),
                               child: TextButton.icon(
                                 onPressed: () {
                                   setState(() {
@@ -296,13 +310,16 @@ class _LocationState extends State<Location> {
                                 icon: const Icon(Icons.delete_rounded),
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.blue[400],
+                                  textStyle: const TextStyle(
+                                    fontFamily: "Poppins",
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                  foregroundColor: Colors.black,
                                 ),
                               ),
                             ),
                             PopupMenuItem(
-                              textStyle: const TextStyle(
-                                fontFamily: "Poppins",
-                              ),
                               child: TextButton.icon(
                                 onPressed: () {
                                   showDialog(
@@ -316,8 +333,14 @@ class _LocationState extends State<Location> {
                                 },
                                 label: const Text("Details"),
                                 icon: const Icon(Icons.info_rounded),
-                                style: const ButtonStyle(
-                                  backgroundColor: WidgetStatePropertyAll(Colors.blue),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.blue[400],
+                                  textStyle: const TextStyle(
+                                    fontFamily: "Poppins",
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                  foregroundColor: Colors.black,
                                 ),
                               ),
                             ),
